@@ -1,0 +1,70 @@
+/* components/Car/CarCard.css */
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box; /* avoid overflow effect */
+}
+
+/* Styling for the car card container */
+.car-card {
+  display: flex; /* Use flexbox for horizontal layout */
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center the entire card horizontally */
+  gap: 4px;
+
+  border: 1px solid #ddd; /* Light gray border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px; /* Space inside the card */
+  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+  width: 70%; /* Make card width flexible */
+  background-color: #fff; /* White background */ 
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth animation on hover */
+}
+
+/* Hover effect for the car card */
+.car-card:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Deeper shadow */
+}
+
+/* Left side: Car details */
+.car-card-details {
+  flex: 1; /* Take up remaining space */
+  padding-right: 20px; /* Space between text and image */
+}
+
+/* Title styling */
+.car-card h2 {
+  font-size: 1.25rem; /* Slightly larger font for the title */
+  color: #333; /* Dark gray color */
+  margin-bottom: 10px; /* Space below the title */
+  font-weight: 600; /* Bold title */
+}
+
+/* General paragraph styling */
+.car-card p {
+  font-size: 1rem; /* Standard font size for the text */
+  color: #666; /* Medium gray color */
+  margin-bottom: 8px; /* Space between paragraphs */
+}
+
+/* Right side: Image */
+.car-card-image {
+  flex-shrink: 0; /* Prevent image from shrinking */
+  margin-left: 20px; /* Space between image and details */
+}
+
+.car-card-image img {
+  width: 200px; /* Fixed width for the image */
+  height: 150px; /* Fixed height for the image */
+  object-fit: cover; /* Ensure the image covers the container */
+  border-radius: 8px; /* Rounded corners for image */
+}
+
+
+
+

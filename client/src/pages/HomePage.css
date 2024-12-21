@@ -1,0 +1,51 @@
+/* HomePage.css */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .homepage {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+  
+  /* Background layer */
+  .homepage-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/images/background.jpg'); /* Replace with your background image */
+    background-size: cover;
+    background-position: center;
+    filter: blur(8px);
+    z-index: -1;
+    outline: 10px solid blueviolet; /* Add this for debugging */
+  }
+  
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+  }
+  
+  .search-input {
+    width: 50%;
+    padding: 15px;
+    font-size: 1.2em;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .search-input:focus {
+    border-color: #00bcd4;
+    box-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
+  }
+  
