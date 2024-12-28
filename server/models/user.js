@@ -15,6 +15,10 @@ exports.findUserByEmail = async (email) => {
   const [rows] = await db.execute(userQueries.findUserByEmail, [email]);
   return rows[0];
 };
+exports.findAdminByEmail = async (email) => {
+  const [rows] = await db.execute(userQueries.findAdminByEmail, [email]);
+  return rows[0];
+};
 
 // Add more functions as needed.
 

@@ -8,5 +8,8 @@ module.exports = {
     findUserByEmail: `
       SELECT * FROM Customer WHERE email = ?
     `,
+    findAdminByEmail: `
+      SELECT * FROM Admin WHERE email = ?
+    `,
     // Add more queries as needed.
   };

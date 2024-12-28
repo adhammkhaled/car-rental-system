@@ -102,13 +102,16 @@ exports.login = async (req, res) => {
     const { email, password, role } = req.body;
 
     // Find the user
-    const user = await userModel.findUserByEmail(email);
+    const user = role === "customer"
+    ? await userModel.findUserByEmail(email)
+    : await userModel.findAdminByEmail(email);
+
     if (!user) {
       return res.status(400).json({ message: 'Invalid email or password.' });
     }
-    console.log(role,user.role);
-    // Compare passwords
-    const isMatch = await bcrypt.compare(password, user.password);
+    //console.log(role,user.role);
+    // Compare passwords (will be changed (use bcrypt for admins as well))
+    const isMatch = role === "customer" ? await bcrypt.compare(password, user.password) : password === user.password;
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid email or password.' });
     }

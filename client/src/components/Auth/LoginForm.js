@@ -84,6 +84,8 @@ const LoginForm = () => {
         setMessage('Login successful!');
         localStorage.setItem('isLoggedIn', 'true'); // Store login status
         localStorage.setItem('token', data.token);
+        localStorage.setItem('role', role); // Save role for later use
+        window.location.reload(); // Reload to update components depending on login state
       } else {
         setMessage(data.message || 'Login failed.');
       }
