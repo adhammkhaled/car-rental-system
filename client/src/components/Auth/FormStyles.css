@@ -1,5 +1,5 @@
 /* General form container */
-.login-form-container {
+.form-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,7 +7,7 @@
   }
   
   /* Form styling */
-  .login-form {
+  .form {
     background: white;
     padding: 20px 30px;
     border-radius: 8px;
@@ -70,10 +70,42 @@
     background: #0056b3;
   }
   
-  /* Message styling */
-  .form-message {
-    margin-top: 15px;
-    font-size: 0.9rem;
-    color: #d9534f; /* Error message in red */
-  }
-  
+/* Message styling */
+.form-message {
+  margin-top: 15px;
+  font-size: 0.9rem;
+}
+
+/* Error message in red */
+.form-message.error {
+  color: #d9534f;
+}
+
+/* Success message in green */
+.form-message.success {
+  color: #28a745;
+}
+  /* Styling for the Role radio buttons */
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.form-group label {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 20px;
+  font-size: 1rem;
+  color: #555;
+}
+
+.form-group input[type="radio"] {
+  margin-right: 8px; /* Space between the radio button and the label */
+}
+
+/* Optional: Add some spacing between the radio buttons */
+.form-group div {
+  display: flex;
+  justify-content:space-around;
+  gap: 15px;
+}

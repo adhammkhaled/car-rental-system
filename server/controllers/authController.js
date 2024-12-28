@@ -99,7 +99,7 @@ exports.register = async (req, res) => {
 // Login
 exports.login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, role } = req.body;
 
     // Find the user
     const user = await userModel.findUserByEmail(email);
@@ -112,9 +112,11 @@ exports.login = async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid email or password.' });
     }
-
+    if (role && user.role !== role) {
+      return res.status(400).json({ message: 'Role mismatch.' });
+    }
     // Generate a JWT
-    const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: user.id, email: user.email ,role: user.role}, process.env.JWT_SECRET, {
       expiresIn: '1h', // Token valid for 1 hour
     });
 

@@ -66,6 +66,7 @@ const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [role, setRole] = useState('customer'); // Default role is customer
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -74,13 +75,14 @@ const LoginForm = () => {
       const response = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password,role }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
         setMessage('Login successful!');
+        localStorage.setItem('isLoggedIn', 'true'); // Store login status
         localStorage.setItem('token', data.token);
       } else {
         setMessage(data.message || 'Login failed.');
@@ -113,11 +115,38 @@ const LoginForm = () => {
             required
           />
         </div>
+        <div className="form-group">
+          <label>Role:</label>
+          <div>
+            <label>
+              <input
+                type="radio"
+                name="role"
+                value="customer"
+                checked={role === 'customer'}
+                onChange={() => setRole('customer')}
+              />
+              Customer
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="role"
+                value="admin"
+                checked={role === 'admin'}
+                onChange={() => setRole('admin')}
+              />
+              Admin
+            </label>
+          </div>
+          
+        </div>
+        {message && <p className="form-message">{message}</p>}
         <Button type="submit" variant="primary" size="medium" fullWidth>
           Login
         </Button>
       </form>
-      {message && <p className="form-message">{message}</p>}
+
     </div>
   );
 };
