@@ -1,11 +1,10 @@
 // models/userModel.js
-const db = require('../config/db');
+const db = require('../config/database');
 const userQueries = require('../sql/queries/userQueries');
 
-exports.createUser = async (firstName, lastName, email, passwordHash) => {
+exports.createUser = async (Name, email, passwordHash) => {
   const [result] = await db.execute(userQueries.createUser, [
-    firstName,
-    lastName,
+    Name,
     email,
     passwordHash,
   ]);
@@ -18,3 +17,4 @@ exports.findUserByEmail = async (email) => {
 };
 
 // Add more functions as needed.
+

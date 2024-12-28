@@ -1,4 +1,4 @@
-.navbar {
+/* .navbar {
     display: flex;
   }
   
@@ -24,4 +24,41 @@
   .navbar-menu a:hover {
     color: #00bcd4;
   }
-  
+   */
+
+   /* Navbar container */
+.navbar {
+  display: flex;
+  justify-content: space-between; /* Spread out the items */
+  align-items: center; /* Align items vertically */
+  padding: 10px 20px;
+  background-color: #333; /* Dark background for the navbar */
+}
+
+/* Navbar menu list */
+.navbar-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 20px; /* Increase the gap between items */
+}
+
+/* Navbar menu list items */
+.navbar-menu li {
+  display: inline;
+}
+
+/* Styling for links inside the navbar */
+.navbar-menu a {
+  text-decoration: none;
+  color: white; /* Set text color to white */
+  font-weight: 500;
+  font-size: 16px; /* Set font size */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+/* Hover effect for links */
+.navbar-menu a:hover {
+  color: #00bcd4; /* Change text color on hover */
+}
