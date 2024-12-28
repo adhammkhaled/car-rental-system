@@ -106,14 +106,11 @@ exports.login = async (req, res) => {
     if (!user) {
       return res.status(400).json({ message: 'Invalid email or password.' });
     }
-
+    console.log(role,user.role);
     // Compare passwords
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid email or password.' });
-    }
-    if (role && user.role !== role) {
-      return res.status(400).json({ message: 'Role mismatch.' });
     }
     // Generate a JWT
     const token = jwt.sign({ id: user.id, email: user.email ,role: user.role}, process.env.JWT_SECRET, {

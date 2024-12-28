@@ -138,8 +138,7 @@ const LoginForm = () => {
               />
               Admin
             </label>
-          </div>
-          
+          </div>  
         </div>
         {message && <p className="form-message">{message}</p>}
         <Button type="submit" variant="primary" size="medium" fullWidth>

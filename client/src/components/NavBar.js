@@ -47,7 +47,7 @@ const Navbar = () => {
           <>
             {/* Show Logout and User Profile if logged in */}
             <li><Link to="/profile">User Profile</Link></li>
-            <li><button onClick={handleLogout}>Logout</button></li>
+            <li><Link onClick={handleLogout} to = "/">Logout</Link></li>
           </>
         )}
         <li><Link to="#about">About</Link></li>
