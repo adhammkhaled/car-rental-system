@@ -2,7 +2,7 @@
 
 const reservationModel = require('../models/reservation');
 const carModel = require('../models/car'); // Assuming you have a carModel
-const customerModel = require('../models/customer'); // Assuming you have a customerModel
+const userModel = require('../models/user'); // Assuming you have a customerModel
 
 exports.makeReservation = async (req, res) => {
   try {
@@ -15,7 +15,7 @@ exports.makeReservation = async (req, res) => {
     console.log('Customer ID:', cust_id);
 
     // Check if customer exists
-    const customerExists = await customerModel.getCustomerById(cust_id);
+    const customerExists = await userModel.getUserById(cust_id);
     if (!customerExists) {
       return res.status(404).json({ message: 'Customer not found.' });
     }

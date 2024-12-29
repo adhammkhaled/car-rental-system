@@ -11,7 +11,7 @@ exports.getReadyToPickupCars = async (custId) => {
     FROM Reserve r
     JOIN Car c ON r.plate_id = c.plate_id
     LEFT JOIN Pickup p ON r.order_no = p.order_no
-    WHERE r.cust_id = ? AND r.reservation_status = 'pending' AND p.order_no IS NULL
+    WHERE r.cust_id = ? AND r.reservation_status = 'completed' AND p.order_no IS NULL
   `;
   const [rows] = await db.execute(query, [custId]);
   return rows;
@@ -35,7 +35,7 @@ exports.pickupCar = async (orderNo, custId) => {
   try {
     await connection.beginTransaction();
     const [rows] = await connection.execute(
-      'SELECT * FROM Reserve WHERE order_no = ? AND cust_id = ? AND reservation_status = "pending"',
+      'SELECT * FROM Reserve WHERE order_no = ? AND cust_id = ? AND reservation_status = "completed"',
       [orderNo, custId]
     );
     if (rows.length === 0) throw new Error('Reservation not eligible for pickup.');

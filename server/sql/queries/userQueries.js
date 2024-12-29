@@ -13,12 +13,7 @@ module.exports = {
     `,
     getUserById: `
     SELECT 
-      id,
-      name,
-      email,
-      phone,
-      address,
-      created_at
+      *
     FROM Customer
     WHERE id = ?
   `,

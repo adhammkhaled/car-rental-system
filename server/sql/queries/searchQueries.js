@@ -31,7 +31,8 @@ module.exports = {
       LEFT JOIN
         Customer cu ON r.cust_id = cu.id
       WHERE
-        c.model LIKE ?
+        c.plate_id LIKE ?
+        OR c.model LIKE ?
         OR CAST(c.year AS CHAR) LIKE ?
         OR c.colour LIKE ?
         OR o.location LIKE ?
