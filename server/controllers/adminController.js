@@ -6,6 +6,7 @@ const carStatusModel = require('../models/carStatus');
 const customerModel = require('../models/customer');
 const reservationModel = require('../models/reservation');
 const paymentModel = require('../models/payment');
+const searchModel = require('../models/search');
 
 
 exports.getAllCars = async (req, res) => {
@@ -63,8 +64,9 @@ exports.getAllCarStatuses = async (req, res) => {
 
   exports.advancedSearch = async (req, res) => {
     const { searchTerm } = req.query;
+  
     try {
-      const results = await reservationModel.advancedSearch(searchTerm);
+      const results = await searchModel.advancedSearch(searchTerm);
       res.json(results);
     } catch (error) {
       console.error('Error performing advanced search:', error);

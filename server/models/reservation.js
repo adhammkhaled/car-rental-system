@@ -41,6 +41,7 @@ exports.cancelReservation = async (orderNo, custId) => {
 
 
 exports.advancedSearch = async (searchCriteria) => {
+  // Extract search parameters with default empty strings
   const {
     car_model = '',
     car_year = '',
@@ -49,10 +50,11 @@ exports.advancedSearch = async (searchCriteria) => {
     car_status = '',
     customer_email = '',
     customer_id = '',
-    reservation_date = '',
+    reservation_date = ''
   } = searchCriteria;
 
-  const [rows] = await db.execute(reservationQueries.advancedSearch, [
+  // Prepare parameters for the SQL query
+  const params = [
     `%${car_model}%`,
     `%${car_year}%`,
     `%${car_colour}%`,
@@ -60,9 +62,10 @@ exports.advancedSearch = async (searchCriteria) => {
     `%${car_status}%`,
     `%${customer_email}%`,
     `%${customer_id}%`,
-    reservation_date,
-  ]);
+    reservation_date 
+  ];
 
+  const [rows] = await db.execute(queries.advancedSearch, params);
   return rows;
 };
 
