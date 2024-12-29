@@ -41,17 +41,8 @@ export const signupUser = async (name, email, password) => {
 };
 
 // Function to get car details
-export const getCarDetails = async (plateid) => {
-  try {
-    // Make a GET request with the plateid as a query parameter
-    const response = await axios.get(`/api/cars`, {
-      params: { plateid } // Pass plateid as query param
-    });
-    return response.data; // Return the car details
-  } catch (error) {
-    console.error('Error fetching car details:', error);
-    throw error.response?.data || error.message; // Return error message to UI
-  }
+export const getCarDetails = (plate_id) => {
+  return axios.get(`/api/cars/${plate_id}`);
 };
 
 

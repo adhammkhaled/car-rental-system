@@ -1,8 +1,10 @@
 // CarDetails.js
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getCarDetails } from '../../services/api'; // Your API service
+
 import './CarDetails.css'; // Component-specific CSS
+import Button from '../Common/Button'
+import { getCarDetails } from '../../services/api'; // Your API service
 
 const CarDetails = () => {
   const { plate_id } = useParams();  // Extract plate_id from the URL params
@@ -12,7 +14,8 @@ const CarDetails = () => {
   useEffect(() => {
     const fetchCarDetails = async () => {
       try {
-        const response = await getCarDetails(plate_id);  // Fetch car details from the API
+        // will be changed to axios api 
+        const response =  await getCarDetails(plate_id);
         setCarDetails(response.data);
       } catch (err) {
         setError(err.response ? err.response.data : 'Something went wrong');
@@ -47,7 +50,17 @@ const CarDetails = () => {
           <p><strong>Number of seats:</strong> {carDetails.num_seats}</p>
           <p><strong>Speed:</strong> {carDetails.speed} km/h</p>
           <p><strong>Fuel Consumption:</strong> {carDetails.fuel_cons} L/100km</p>
+         
+          
+       
         </div>
+        <Button 
+            onClick={() => window.location.href = `/reserve/${plate_id}`}
+            variant="primary"
+            size="large"
+        >
+         Reserve Car
+        </Button>
       </div>
     </div>
   );
