@@ -70,7 +70,7 @@ const LoginForm = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+    
     try {
       const response = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
@@ -79,12 +79,13 @@ const LoginForm = () => {
       });
 
       const data = await response.json();
-
+      
       if (response.ok) {
         setMessage('Login successful!');
         localStorage.setItem('isLoggedIn', 'true'); // Store login status
         localStorage.setItem('token', data.token);
         localStorage.setItem('role', role); // Save role for later use
+        localStorage.setItem('id',data.user.id);
         window.location.reload(); // Reload to update components depending on login state
       } else {
         setMessage(data.message || 'Login failed.');

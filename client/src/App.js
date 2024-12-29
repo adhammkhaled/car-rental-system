@@ -5,6 +5,9 @@ import Header from './components/Header';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import CarPage from './pages/CarPage';
+import ReservationPage from './pages/ReservationPage';
+import CheckoutPage from './pages/CheckoutPage';
+import PaymentSuccessPage from './pages/PaymentSuccessPage';
 
 function App() {
   return (
@@ -15,6 +18,9 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/cars/:plate_id" element={<CarPage />} />
+        <Route path="/reserve/:plate_id" element={<ReservationPage />} />
+        <Route path="/checkout/:orderNo" element={<CheckoutPage />} />
+        <Route path="/payment-success/:orderNo" element={<PaymentSuccessPage />} />
         {/* Add more routes as needed */}
       </Routes>
     </Router>
