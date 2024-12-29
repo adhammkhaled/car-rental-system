@@ -94,9 +94,6 @@ exports.getPaymentsForCustomer = async (custId) => {
 };
 exports.getDailyPayments = async (params) => {
     const { start_date, end_date } = params;
-    const [rows] = await db.execute(require('../sql/queries/paymentQueries').getDailyPayments, [
-      start_date,
-      end_date,
-    ]);
+    const [rows] = await db.execute(paymentQueries.getDailyPayments, [start_date, end_date]);
     return rows;
   };

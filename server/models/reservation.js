@@ -40,15 +40,29 @@ exports.cancelReservation = async (orderNo, custId) => {
 };
 
 
-exports.advancedSearch = async (searchTerm) => {
-  const [rows] = await db.execute(queries.advancedSearch, [
-    `%${searchTerm}%`,
-    `%${searchTerm}%`,
-    `%${searchTerm}%`,
-    `%${searchTerm}%`,
-    `%${searchTerm}%`,
-    `%${searchTerm}%`,
+exports.advancedSearch = async (searchCriteria) => {
+  const {
+    car_model = '',
+    car_year = '',
+    car_colour = '',
+    office_location = '',
+    car_status = '',
+    customer_email = '',
+    customer_id = '',
+    reservation_date = '',
+  } = searchCriteria;
+
+  const [rows] = await db.execute(reservationQueries.advancedSearch, [
+    `%${car_model}%`,
+    `%${car_year}%`,
+    `%${car_colour}%`,
+    `%${office_location}%`,
+    `%${car_status}%`,
+    `%${customer_email}%`,
+    `%${customer_id}%`,
+    reservation_date,
   ]);
+
   return rows;
 };
 
