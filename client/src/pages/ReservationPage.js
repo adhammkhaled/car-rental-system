@@ -1,36 +1,48 @@
-// src/components/ReservationPage.js
-import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import './ReservationPage.css';
-import { reservePlate } from '../services/api';
-import Button from '../components/Common/Button';
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import "./ReservationPage.css";
+import { reservePlate } from "../services/api";
+import Button from "../components/Common/Button";
 
 function ReservationPage() {
   const { plate_id } = useParams();
   const navigate = useNavigate();
-  
-  const custId = localStorage.getItem('id'); // Get customer ID from local storage
 
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [orderNo, setOrderNo] = useState(null); // State to store order number
+  const [isAuthorized, setIsAuthorized] = useState(true); // Authorization state
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [orderNo, setOrderNo] = useState(null);
+
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true"; // Check if user is logged in
+    const userRole = localStorage.getItem("role"); // Get user role
+
+    if (!isLoggedIn || userRole !== "customer") {
+      setErrorMessage(
+        "Access denied. Only logged-in customers can make reservations."
+      );
+      setIsAuthorized(false);
+
+      // Redirect to login page or home after a short delay
+      setTimeout(() => navigate(isLoggedIn ? "/" : "/login"), 3000);
+    }
+  }, [navigate]);
 
   const handleReservation = async (e) => {
     e.preventDefault();
 
-    // Basic validation
     if (!startDate || !endDate) {
-      setErrorMessage('Please select both start and end dates.');
+      setErrorMessage("Please select both start and end dates.");
       return;
     }
     if (new Date(endDate) < new Date(startDate)) {
-      setErrorMessage('End date must be after start date.');
+      setErrorMessage("End date must be after start date.");
       return;
     }
 
-    // Create reservation object
+    const custId = localStorage.getItem("id"); // Get customer ID
     const reservation = {
       cust_id: custId,
       plate_id: plate_id,
@@ -39,20 +51,24 @@ function ReservationPage() {
     };
 
     try {
-      // Send POST request to backend API
       const data = await reservePlate(plate_id, reservation);
 
       if (data.order_no) {
-        setSuccessMessage(`Reservation successful! Your order number is ${data.order_no}.`);
+        setSuccessMessage(
+          `Reservation successful! Your order number is ${data.order_no}.`
+        );
         setOrderNo(data.order_no);
       } else {
-        setErrorMessage(data.message || 'Failed to reserve the car.');
+        setErrorMessage(data.message || "Failed to reserve the car.");
       }
     } catch (error) {
-      console.error('Error:', error);
-      setErrorMessage('An error occurred while processing your reservation.');
+      console.error("Error:", error);
+      setErrorMessage("An error occurred while processing your reservation.");
     }
   };
+
+  // Render nothing if not authorized
+  if (!isAuthorized) return null;
 
   return (
     <div className="reservation-container">
@@ -82,19 +98,17 @@ function ReservationPage() {
           />
         </div>
 
-        {/* Replace the submit button with custom Button */}
         <Button type="submit" variant="primary" size="large">
           Reserve Now
         </Button>
       </form>
 
-      {/* Conditionally render the Payout button */}
       {orderNo && (
-        <Button 
+        <Button
           onClick={() => navigate(`/checkout/${orderNo}`)}
           variant="success"
           size="large"
-          style={{ marginTop: '20px' }} // Add some spacing
+          style={{ marginTop: "20px" }}
         >
           Proceed to Checkout
         </Button>

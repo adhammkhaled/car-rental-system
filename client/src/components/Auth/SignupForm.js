@@ -1,51 +1,51 @@
-import React, { useState } from 'react';
-import Button from '../Common/Button';
-import './FormStyles.css'; // Reuse the same CSS file
+import React, { useState } from "react";
+import Button from "../Common/Button";
+import "./FormStyles.css"; // Reuse the same CSS file
 
 const SignupForm = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
-  const nameRegex = /^[A-Za-z]+$/; // Only alphabets for name
+  const nameRegex = /^[A-Za-z]+(\s[A-Za-z]+)*$/; // Allows alphabets with optional spaces between words
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/; // Valid email pattern
-  const passwordRegex = /.{8,}/; // Password must be at least 8 characters long
+  const passwordRegex = /^(?=.*\S).{8,}$/; // At least 8 characters and no spaces
 
   const handleRegister = async (e) => {
     e.preventDefault();
     // Validate fields
     if (!nameRegex.test(name)) {
-      setMessage('Name should only contain alphabets');
+      setMessage("Name should only contain alphabets");
       return;
     }
     if (!emailRegex.test(email)) {
-      setMessage('Please enter a valid email');
+      setMessage("Please enter a valid email");
       return;
     }
 
     if (!passwordRegex.test(password)) {
-      setMessage('Password must be at least 8 characters long');
+      setMessage("Password must be at least 8 characters long");
       return;
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        setMessage('Registration successful!');
+        setMessage("Registration successful!");
       } else {
-        setMessage(data.message || 'Registration failed.');
+        setMessage(data.message || "Registration failed.");
       }
     } catch (error) {
-      console.error('Registration error:', error);
-      setMessage('Server error. Please try again later.');
+      console.error("Registration error:", error);
+      setMessage("Server error. Please try again later.");
     }
   };
 
