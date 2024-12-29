@@ -1,0 +1,57 @@
+.admin-container {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+}
+
+.admin-header {
+  grid-column: span 2;
+  background-color: #343a40;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+.admin-sidebar {
+  background-color: #f8f9fa;
+  padding: 1rem;
+}
+
+.admin-sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.admin-sidebar li {
+  margin: 1rem 0;
+  cursor: pointer;
+  color: #007bff;
+}
+
+.admin-sidebar li:hover {
+  text-decoration: underline;
+}
+
+.admin-content {
+  padding: 2rem;
+  background-color: #ffffff;
+}
+
+.admin-actions {
+  margin-top: 2rem;
+}
+
+.action-btn {
+  padding: 0.5rem 1rem;
+  margin-right: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.action-btn:hover {
+  background-color: #0056b3;
+}
