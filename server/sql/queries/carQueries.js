@@ -29,5 +29,22 @@ module.exports = {
     `
 
   ,
-    // Other queries...
+
+    getCarDetails: `
+      SELECT 
+            plate_id,
+            model,
+            year,
+            colour,
+            price_per_hour,
+            num_seats,
+            speed,
+            fuel_cons,
+            image_url
+        FROM 
+            Car
+        WHERE 
+            plate_id = ? AND status_id = 1;
+    `,
+  
   };

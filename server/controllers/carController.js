@@ -38,3 +38,19 @@ exports.getAvailableCars = async (req, res) => {
       res.status(500).json({ message: 'Server error' });
     }
   };
+  exports.getCarDetails = async (req, res) => {
+    try {
+      const { plateId } = req.params;
+  
+      const carDetails = await carModel.getCarDetails(plateId);
+  
+      if (!carDetails) {
+        return res.status(404).json({ message: 'Car not found or not available.' });
+      }
+  
+      res.status(200).json(carDetails);
+    } catch (error) {
+      console.error('Error fetching car details:', error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  };
