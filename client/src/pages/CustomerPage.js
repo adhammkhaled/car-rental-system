@@ -18,11 +18,11 @@ const CustomerProfile = ({ user }) => {
     <div className="customer-profile">
       {/* Profile Header */}
       <div className="profile-header">
-        <img
+        {/* <img
           src="https://via.placeholder.com/150" // Placeholder image; replace with actual image
           alt={`${userInfo.name}'s avatar`}
           className="profile-avatar"
-        />
+        /> */}
         <h2 className="profile-name">{userInfo.name}</h2>
         <p className="profile-membership">{userInfo.membership}</p>
       </div>
