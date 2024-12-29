@@ -120,9 +120,7 @@ exports.login = async (req, res) => {
       expiresIn: '1h', // Token valid for 1 hour
     });
 
-    res.status(200).json({ message: 'Login successful', token,
-      user: { id: user.id, email: user.email, name: user.name, role: user.role },
-    });
+    res.status(200).json({ message: 'Login successful', token });
   } catch (error) {
     console.error('Error during login:', error);
     res.status(500).json({ message: 'Server error' });

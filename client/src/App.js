@@ -9,7 +9,6 @@ import CarPage from "./pages/CarPage";
 import ReservationPage from "./pages/ReservationPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
-
 function App() {
   return (
     <Router>
