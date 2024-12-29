@@ -1,0 +1,31 @@
+/* App.css or CarDetailsPage.css */
+.car-details-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .car-details {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .car-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .car-info p {
+    font-size: 16px;
+    margin: 8px 0;
+  }
+  
+  .car-details img {
+    max-width: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  

@@ -1,11 +1,15 @@
-// models/paymentModel.js
-
 const db = require('../config/database'); // Import your database connection
-const paymentQueries = require('../sql/queries/paymentQueries'); // Import payment queries
 
 exports.getPaymentDetails = async (orderNo) => {
-  // Use the query from paymentQueries.js
-  const query = paymentQueries.getPaymentDetails;
+  const query = `
+    SELECT r.order_no, r.cust_id, r.plate_id, r.start_date, r.end_date, r.charge, 
+           c.model, c.price_per_hour, c.plate_id, c.image_url, 
+           p.payment_status, p.total_charge
+    FROM Reserve r
+    JOIN Car c ON r.plate_id = c.plate_id
+    LEFT JOIN Payment p ON r.order_no = p.order_no
+    WHERE r.order_no = ?
+  `;
 
   const [rows] = await db.execute(query, [orderNo]);
 
@@ -43,37 +47,40 @@ exports.processPayment = async (orderNo) => {
   try {
     await connection.beginTransaction();
 
-    // Use the query from paymentQueries.js
-    const checkPaymentQuery = paymentQueries.checkExistingPayment;
-
     // Check if payment already exists
     const [paymentRows] = await connection.execute(
-      checkPaymentQuery,
+      `SELECT * FROM Payment WHERE order_no = ?`,
       [orderNo]
     );
 
-    if (
-      paymentRows.length > 0 &&
-      paymentRows[0].payment_status === 'completed'
-    ) {
+    if (paymentRows.length > 0 && paymentRows[0].payment_status === 'completed') {
       // Payment already completed
       await connection.rollback();
       return false;
     }
 
+    // Insert or update payment record
     if (paymentRows.length === 0) {
       // Insert new payment record
-      const insertPaymentQuery = paymentQueries.insertNewPayment;
-      await connection.execute(insertPaymentQuery, [orderNo]);
+      await connection.execute(
+        `INSERT INTO Payment (order_no, total_charge, payment_status)
+         SELECT order_no, charge, 'completed' FROM Reserve WHERE order_no = ?`,
+        [orderNo]
+      );
     } else {
       // Update existing payment record
-      const updatePaymentStatusQuery = paymentQueries.updatePaymentStatus;
-      await connection.execute(updatePaymentStatusQuery, [orderNo]);
+      await connection.execute(
+        `UPDATE Payment SET payment_status = 'completed', payment_date = NOW()
+         WHERE order_no = ?`,
+        [orderNo]
+      );
     }
 
     // Update reservation status to 'completed'
-    const updateReservationStatusQuery = paymentQueries.updateReservationStatus;
-    await connection.execute(updateReservationStatusQuery, [orderNo]);
+    await connection.execute(
+      `UPDATE Reserve SET reservation_status = 'completed' WHERE order_no = ?`,
+      [orderNo]
+    );
 
     await connection.commit();
     return true;
@@ -84,11 +91,4 @@ exports.processPayment = async (orderNo) => {
   } finally {
     connection.release();
   }
-};
-
-// Optional: Get all payments for a customer
-exports.getPaymentsForCustomer = async (custId) => {
-  const query = paymentQueries.getPaymentsForCustomer;
-  const [rows] = await db.execute(query, [custId]);
-  return rows;
 };
