@@ -1,7 +1,10 @@
 // services/api.js
 import axios from 'axios';
 
-
+// Base URL configuration (optional)
+const API_BASE_URL = 'http://localhost:5000'; // Replace with your API base URL if needed
+axios.defaults.baseURL = API_BASE_URL;
+const custId = localStorage.getItem('id');
 // Function to get available cars with optional search term
 export const getAvailableCars = async (searchTerm = '') => {
   try {
@@ -168,5 +171,29 @@ export const generateReport = async (reportType, params) => {
     console.error('Error generating report:', error);
     throw error.response?.data || error.message;
   }
+};
+
+
+export const getUserInfo = async () => {
+  const response = await axios.get(`/api/customer/info/${custId}`);
+  return response.data;
+};
+
+export const getReadyToPickupCars = async () => {
+  const response = await axios.get(`/api/customer/ready-to-pickup/${custId}`);
+  return response.data;
+};
+
+export const getCurrentlyRentedCars = async () => {
+  const response = await axios.get(`/api/customer/currently-rented/${custId}`);
+  return response.data;
+};
+
+export const pickupCar = async (orderNo) => {
+  await axios.post(`/api/customer/pickup/${orderNo}/${custId}`);
+};
+
+export const returnCar = async (orderNo) => {
+  await axios.post(`/api/customer/return/${orderNo}/${custId}`);
 };
 

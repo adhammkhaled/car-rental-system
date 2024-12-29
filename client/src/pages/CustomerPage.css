@@ -1,58 +1,53 @@
-.customer-page {
-  display: flex;
-  gap: 20px;
-  padding: 20px;
-  background-color: #f8f9fa;
+/* CustomerPage.css */
+
+.customer-container {
+  max-width: 800px;
+  margin: 50px auto;
   font-family: Arial, sans-serif;
 }
 
-.left-side,
-.right-side {
-  flex: 1;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.section-title {
-  font-size: 1.5em;
-  margin-bottom: 20px;
+.customer-container h1 {
   text-align: center;
-  color: #333;
-  border-bottom: 2px solid #00bcd4;
-  padding-bottom: 10px;
+  margin-bottom: 30px;
 }
 
-.customer-profile {
-  text-align: left;
+.section {
+  margin-bottom: 40px;
 }
 
-.profile-name {
-  font-size: 1.8em;
-  margin-bottom: 10px;
-  color: #333;
+.section h2 {
+  margin-bottom: 20px;
 }
 
-.rented-cars {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.error-message {
+  color: red;
+  text-align: center;
 }
 
-.car-item {
-  padding: 10px;
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th, table td {
   border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  text-align: center;
 }
 
-.car-item p {
-  margin: 5px 0;
+table th {
+  background-color: #f2f2f2;
 }
 
-.car-item strong {
-  color: #00bcd4;
+.action-btn {
+  background-color: #28a745;
+  color: #fff;
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.action-btn:hover {
+  background-color: #218838;
 }

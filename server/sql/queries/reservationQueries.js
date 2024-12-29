@@ -114,4 +114,60 @@ module.exports = {
     WHERE
       r.cust_id = ?
   `,
+  getReservedCars: `
+    SELECT 
+      r.order_no,
+      c.model,
+      r.start_date,
+      r.end_date,
+      r.charge
+    FROM 
+      Reserve r
+      JOIN Car c ON r.plate_id = c.plate_id
+    WHERE 
+      r.cust_id = ?
+      AND r.reservation_status = 'pending'
+      AND EXISTS (
+        SELECT 1 FROM Payment p WHERE p.order_no = r.order_no AND p.payment_status = 'completed'
+      )
+  `,
+
+  getRentedCars: `
+    SELECT 
+      r.order_no,
+      c.model,
+      p.pickup_date,
+      r.end_date
+    FROM 
+      Reserve r
+      JOIN Car c ON r.plate_id = c.plate_id
+      JOIN Pickup p ON r.order_no = p.order_no
+    WHERE 
+      r.cust_id = ?
+      AND r.reservation_status = 'active'
+  `,
+  
+  updateReservationStatus: `
+    UPDATE Reserve SET reservation_status = ? WHERE order_no = ?
+  `,
+  
+  insertPickup: `
+    INSERT INTO Pickup (order_no, pickup_date) VALUES (?, NOW())
+  `,
+  
+  updateCarStatus: `
+    UPDATE Car SET status_id = ? WHERE plate_id = ?
+  `,
+  
+  getCarPlateId: `
+    SELECT plate_id FROM Reserve WHERE order_no = ?
+  `,
+  
+  completeReservation: `
+    UPDATE Reserve SET reservation_status = 'completed' WHERE order_no = ?
+  `,
+
+  getCarStatusIdByName: `
+    SELECT status_id FROM CarStatus WHERE status_name = ?
+  `,
   };

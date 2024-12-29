@@ -1,86 +1,132 @@
-import React from "react";
-import "./CustomerPage.css";
+import React, { useState, useEffect } from 'react';
+import './CustomerPage.css';
+import { getUserInfo, getReadyToPickupCars, getCurrentlyRentedCars, pickupCar, returnCar } from '../services/api';
 
 const CustomerPage = () => {
-  // Mock data for customer info (replace with actual API data)
-  const userInfo = {
-    name: "John Doe",
-    email: "johndoe@example.com",
-    phone: "+123 456 7890",
-    address: "123 Main St, Springfield, USA",
-    membership: "Gold Member",
-    joined: "January 10, 2023",
+  const [userName, setUserName] = useState('');
+  const [readyToPickupCars, setReadyToPickupCars] = useState([]);
+  const [rentedCars, setRentedCars] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    fetchUserInfo();
+    fetchReadyToPickupCars();
+    fetchCurrentlyRentedCars();
+  }, []);
+
+  const fetchUserInfo = async () => {
+    try {
+      const data = await getUserInfo();
+      setUserName(data.name);
+    } catch (error) {
+      setErrorMessage('Error fetching user info.');
+    }
   };
 
-  // Mock data for cars rented (replace with actual API data)
-  const rentedCars = [
-    {
-      id: 1,
-      model: "Toyota Corolla",
-      pickupDate: "2024-01-10",
-      startDate: "2024-01-11",
-      endDate: "2024-01-20",
-      payment: "$200",
-    },
-    {
-      id: 2,
-      model: "Ford Mustang",
-      pickupDate: "2024-02-15",
-      startDate: "2024-02-16",
-      endDate: "2024-02-25",
-      payment: "$450",
-    },
-  ];
+  const fetchReadyToPickupCars = async () => {
+    try {
+      const data = await getReadyToPickupCars();
+      setReadyToPickupCars(data);
+    } catch (error) {
+      setErrorMessage('Error fetching ready-to-pickup cars.');
+    }
+  };
+
+  const fetchCurrentlyRentedCars = async () => {
+    try {
+      const data = await getCurrentlyRentedCars();
+      setRentedCars(data);
+    } catch (error) {
+      setErrorMessage('Error fetching rented cars.');
+    }
+  };
+
+  const handlePickup = async (orderNo) => {
+    try {
+      await pickupCar(orderNo);
+      fetchReadyToPickupCars();
+      fetchCurrentlyRentedCars();
+      alert('Car picked up successfully.');
+    } catch (error) {
+      alert('Error picking up car.');
+    }
+  };
+
+  const handleReturn = async (orderNo) => {
+    try {
+      await returnCar(orderNo);
+      fetchCurrentlyRentedCars();
+      alert('Car returned successfully.');
+    } catch (error) {
+      alert('Error returning car.');
+    }
+  };
 
   return (
-    <div className="customer-page">
-      {/* Left Side: User Info */}
-      <div className="left-side">
-        <h2 className="section-title">Info</h2>
-        <div className="customer-profile">
-          <h3 className="profile-name">{userInfo.name}</h3>
-          <p>
-            <strong>Email:</strong> {userInfo.email}
-          </p>
-          <p>
-            <strong>Phone:</strong> {userInfo.phone}
-          </p>
-          <p>
-            <strong>Address:</strong> {userInfo.address}
-          </p>
-          <p>
-            <strong>Membership:</strong> {userInfo.membership}
-          </p>
-          <p>
-            <strong>Joined:</strong> {userInfo.joined}
-          </p>
-        </div>
+    <div className="customer-container">
+      <h1>Welcome, {userName}</h1>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      <div className="section">
+        <h2>Ready to Pickup</h2>
+        {readyToPickupCars.length === 0 ? (
+          <p>No cars ready to pickup.</p>
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th>Order No</th>
+                <th>Car Model</th>
+                <th>Plate ID</th>
+                <th>Pickup</th>
+              </tr>
+            </thead>
+            <tbody>
+              {readyToPickupCars.map((car) => (
+                <tr key={car.order_no}>
+                  <td>{car.order_no}</td>
+                  <td>{car.model}</td>
+                  <td>{car.plate_id}</td>
+                  <td>
+                    <button onClick={() => handlePickup(car.order_no)} className="action-btn">
+                      Pick Up
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
-
-      {/* Right Side: Rented Cars */}
-      <div className="right-side">
-        <h2 className="section-title">Rented Cars</h2>
-        <div className="rented-cars">
-          {rentedCars.map((car) => (
-            <div key={car.id} className="car-item">
-              <p>
-                <strong>Model:</strong> {car.model}
-              </p>
-              <p>
-                <strong>Pickup Date:</strong> {car.pickupDate}
-              </p>
-              <p>
-                <strong>Start Date:</strong> {car.startDate}
-              </p>
-              <p>
-                <strong>End Date:</strong> {car.endDate}
-              </p>
-              <p>
-                <strong>Payment:</strong> {car.payment}
-              </p>
-            </div>
-          ))}
-        </div>
+      <div className="section">
+        <h2>Currently Rented Cars</h2>
+        {rentedCars.length === 0 ? (
+          <p>No cars currently rented.</p>
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th>Order No</th>
+                <th>Car Model</th>
+                <th>Plate ID</th>
+                <th>Return</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rentedCars.map((car) => (
+                <tr key={car.order_no}>
+                  <td>{car.order_no}</td>
+                  <td>{car.model}</td>
+                  <td>{car.plate_id}</td>
+                  <td>
+                    <button onClick={() => handleReturn(car.order_no)} className="action-btn">
+                      Return
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );
