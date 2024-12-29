@@ -1,0 +1,58 @@
+.customer-page {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+}
+
+.left-side,
+.right-side {
+  flex: 1;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+  border-bottom: 2px solid #00bcd4;
+  padding-bottom: 10px;
+}
+
+.customer-profile {
+  text-align: left;
+}
+
+.profile-name {
+  font-size: 1.8em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.rented-cars {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.car-item {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.car-item p {
+  margin: 5px 0;
+}
+
+.car-item strong {
+  color: #00bcd4;
+}
