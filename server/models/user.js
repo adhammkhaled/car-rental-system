@@ -1,24 +1,10 @@
-// models/userModel.js
-const db = require('../config/database');
-const userQueries = require('../sql/queries/userQueries');
+const db = require("../config/database"); // Assuming database configuration
+const customerQueries = require("../sql/queries/userQueries"); // Queries for customer-related operations
 
-exports.createUser = async (Name, email, passwordHash) => {
-  const [result] = await db.execute(userQueries.createUser, [
-    Name,
-    email,
-    passwordHash,
-  ]);
-  return result.insertId;
-};
-
+// Fetch customer data by email (excluding password)
 exports.findUserByEmail = async (email) => {
-  const [rows] = await db.execute(userQueries.findUserByEmail, [email]);
-  return rows[0];
-};
-exports.findAdminByEmail = async (email) => {
-  const [rows] = await db.execute(userQueries.findAdminByEmail, [email]);
-  return rows[0];
+  const [rows] = await db.execute(customerQueries.findUserByEmail, [email]);
+  return rows[0]; // Assuming there's only one customer with a unique email
 };
 
-// Add more functions as needed.
-
+// Add more model functions as needed

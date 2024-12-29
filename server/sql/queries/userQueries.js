@@ -1,15 +1,15 @@
 // sql/queries/userQueries.js
 
 module.exports = {
-    createUser: `
+  createUser: `
       INSERT INTO Customer (Name, email, password)
       VALUES (?, ?, ?)
     `,
-    findUserByEmail: `
-      SELECT * FROM Customer WHERE email = ?
+  findUserByEmail: `
+      SELECT name,email FROM Customer WHERE email = ?
     `,
-    findAdminByEmail: `
+  findAdminByEmail: `
       SELECT * FROM Admin WHERE email = ?
     `,
-    // Add more queries as needed.
-  };
+  // Add more queries as needed.
+};
