@@ -90,4 +90,83 @@ export const processPayment = async (orderNo) => {
   }
 };
 
+// Function to get all cars (for admin purposes)
+export const getAllCars = async () => {
+  try {
+    const response = await axios.get('/api/admin/cars');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching all cars:', error);
+    throw error.response?.data || error.message;
+  }
+};
+
+// Function to create a new car
+export const createCar = async (carData) => {
+  try {
+    const response = await axios.post('/api/admin/cars', carData);
+    return response.data;
+  } catch (error) {
+    console.error('Error creating car:', error);
+    throw error.response?.data || error.message;
+  }
+};
+
+// Function to update an existing car
+export const updateCar = async (plate_id, carData) => {
+  try {
+    const response = await axios.put(`/api/admin/cars/${plate_id}`, carData);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating car:', error);
+    throw error.response?.data || error.message;
+  }
+};
+
+// Function to get all car statuses
+export const getAllCarStatuses = async () => {
+  try {
+    const response = await axios.get('/api/admin/car-statuses');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching car statuses:', error);
+    throw error.response?.data || error.message;
+  }
+};
+
+// Function to get all offices
+export const getAllOffices = async () => {
+  try {
+    const response = await axios.get('/api/admin/offices');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching offices:', error);
+    throw error.response?.data || error.message;
+  }
+};
+
+export const advancedSearch = async (searchTerm) => {
+  try {
+    const response = await axios.get(`/api/admin/advanced-search`, {
+      params: { searchTerm },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error performing advanced search:', error);
+    throw error.response?.data || error.message;
+  }
+};
+
+// Function to generate reports
+export const generateReport = async (reportType, params) => {
+  try {
+    const response = await axios.get(`/api/admin/reports/${reportType}`, {
+      params,
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error generating report:', error);
+    throw error.response?.data || error.message;
+  }
+};
 

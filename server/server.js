@@ -14,12 +14,14 @@ const carRoutes = require('./routes/carRoutes');
 const authRoutes = require('./routes/authRoutes');
 const reservationRoutes = require('./routes/reservationRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
-
+const adminRoutes = require('./routes/adminRoutes');
 
 app.use('/api/payments', paymentRoutes);
 app.use('/api/cars', carRoutes);
 
 
+
+app.use('/api/admin', adminRoutes);
 app.use('/api/reserve', reservationRoutes);
 // ... use other routes as needed
 app.use('/api/auth', authRoutes);

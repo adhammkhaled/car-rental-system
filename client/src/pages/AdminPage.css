@@ -1,57 +1,285 @@
+/* AdminPage.css */
+
+/* Container for the entire admin page */
 .admin-container {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  grid-template-rows: auto 1fr;
-  height: 100vh;
+  display: flex;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
 }
 
+/* Header styles */
 .admin-header {
-  grid-column: span 2;
+  position: fixed;
+  top: 0;
+  left: 200px; /* Width of the sidebar */
+  right: 0;
   background-color: #343a40;
-  color: white;
-  padding: 1rem;
-  text-align: center;
+  color: #fff;
+  padding: 20px;
+  z-index: 1;
 }
 
+.admin-header h1 {
+  margin: 0;
+}
+
+/* Sidebar styles */
 .admin-sidebar {
-  background-color: #f8f9fa;
-  padding: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100%;
+  background-color: #23272b;
+  color: #fff;
+  padding-top: 80px; /* Space for the header */
+  box-sizing: border-box;
 }
 
 .admin-sidebar ul {
   list-style-type: none;
   padding: 0;
+  margin: 0;
 }
 
 .admin-sidebar li {
-  margin: 1rem 0;
+  padding: 15px 20px;
   cursor: pointer;
-  color: #007bff;
 }
 
 .admin-sidebar li:hover {
-  text-decoration: underline;
+  background-color: #2c3136;
 }
 
+/* Content area styles */
 .admin-content {
-  padding: 2rem;
-  background-color: #ffffff;
+  margin-left: 200px; /* Width of the sidebar */
+  padding: 100px 20px 20px 20px; /* Top padding includes header height */
+  flex: 1;
 }
 
+.admin-content h2 {
+  margin-top: 0;
+}
+
+.admin-content p {
+  color: #555;
+}
+
+/* Admin actions sections */
 .admin-actions {
-  margin-top: 2rem;
+  background-color: #fff;
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
+.admin-actions h3 {
+  margin-top: 0;
+}
+
+.admin-actions h4 {
+  margin-top: 0;
+}
+
+/* Form styles */
+.car-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.car-form input,
+.car-form select {
+  flex: 1 1 200px;
+  margin: 5px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.car-form button {
+  flex: 1 1 100%;
+  margin: 5px;
+  padding: 10px;
+}
+
+/* Button styles */
 .action-btn {
-  padding: 0.5rem 1rem;
-  margin-right: 1rem;
   background-color: #007bff;
-  color: white;
+  color: #fff;
+  padding: 10px 15px;
+  margin-top: 10px;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
+  border-radius: 3px;
 }
 
 .action-btn:hover {
-  background-color: #0056b3;
+  background-color: #0069d9;
+}
+
+.cancel-btn {
+  background-color: #6c757d;
+}
+
+.cancel-btn:hover {
+  background-color: #5a6268;
+}
+
+/* Car list styles */
+.car-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.car-item {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin: 5px;
+  width: calc(33.333% - 10px); /* Three items per row with margin */
+  box-sizing: border-box;
+  border-radius: 3px;
+}
+
+.car-item p {
+  margin: 0 0 10px;
+}
+
+.car-item button {
+  margin-top: 10px;
+}
+
+/* Error message styles */
+.error-message {
+  color: red;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Advanced search and reports */
+.admin-actions input[type="text"],
+.admin-actions input[type="date"] {
+  width: calc(50% - 10px);
+  margin: 5px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.admin-actions select {
+  width: calc(50% - 10px);
+  margin: 5px;
+  padding: 10px;
+}
+
+.admin-actions button {
+  display: block;
+  margin: 10px 0;
+}
+
+/* Table styles */
+.search-results table,
+.report-results table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.search-results th,
+.search-results td,
+.report-results th,
+.report-results td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.search-results th,
+.report-results th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+.search-results tr:nth-child(even),
+.report-results tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.search-results tr:hover,
+.report-results tr:hover {
+  background-color: #e9e9e9;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .car-form input,
+  .car-form select,
+  .car-form button,
+  .admin-actions input[type="text"],
+  .admin-actions input[type="date"],
+  .admin-actions select {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  .car-item {
+    width: 100%;
+  }
+
+  .admin-sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding-top: 20px;
+  }
+
+  .admin-header,
+  .admin-content {
+    margin-left: 0;
+  }
+}
+
+/* Scrollable sidebar for small screens */
+.admin-sidebar {
+  overflow-y: auto;
+}
+
+/* For better visibility of forms and tables */
+input, select, textarea {
+  border: 1px solid #ced4da;
+  border-radius: 3px;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #80bdff;
+  box-shadow: 0 0 5px rgba(0,123,255,.25);
+}
+
+/* Adjustments to make content scrollable if needed */
+.admin-content {
+  overflow-y: auto;
+}
+
+/* Styling the helper text and placeholders */
+::placeholder {
+  color: #6c757d;
+}
+
+/* Highlight selected report type */
+.admin-actions select {
+  width: 100%;
+}
+
+/* Adjusting margins for inputs within reports */
+.admin-actions input[type="date"] {
+  width: calc(50% - 10px);
+}
+
+/* Error message styling within forms */
+.form-error-message {
+  color: red;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  font-size: 14px;
 }

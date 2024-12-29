@@ -72,4 +72,12 @@ module.exports = {
       ORDER BY 
         p.payment_date DESC
     `,
+    getDailyPayments: `
+  SELECT p.order_no, p.payment_date, p.total_charge, cu.name AS customer_name
+  FROM Payment p
+  JOIN Reserve r ON p.order_no = r.order_no
+  JOIN Customer cu ON r.cust_id = cu.id
+  WHERE p.payment_date >= ? AND p.payment_date <= ?
+  ORDER BY p.payment_date ASC
+`,
   };

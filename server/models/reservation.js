@@ -38,3 +38,43 @@ exports.cancelReservation = async (orderNo, custId) => {
   const [result] = await db.execute(queries.cancelReservation, [orderNo, custId]);
   return result.affectedRows > 0; // Returns true if a row was updated
 };
+
+
+exports.advancedSearch = async (searchTerm) => {
+  const [rows] = await db.execute(queries.advancedSearch, [
+    `%${searchTerm}%`,
+    `%${searchTerm}%`,
+    `%${searchTerm}%`,
+    `%${searchTerm}%`,
+    `%${searchTerm}%`,
+    `%${searchTerm}%`,
+  ]);
+  return rows;
+};
+
+exports.getReservationsByPeriod = async (params) => {
+  const { start_date, end_date } = params;
+  const [rows] = await db.execute(queries.getReservationsByPeriod, [
+    start_date,
+    end_date,
+  ]);
+  return rows;
+};
+
+exports.getReservationsByCar = async (params) => {
+  const { plate_id, start_date, end_date } = params;
+  const [rows] = await db.execute(queries.getReservationsByCar, [
+    plate_id,
+    start_date,
+    end_date,
+  ]);
+  return rows;
+};
+
+exports.getReservationsByCustomer = async (params) => {
+  const { customer_id } = params;
+  const [rows] = await db.execute(queries.getReservationsByCustomer, [
+    customer_id,
+  ]);
+  return rows;
+};
