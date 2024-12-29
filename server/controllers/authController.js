@@ -100,23 +100,41 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { email, password, role } = req.body;
+    
+    if (!email || !password || !role) {
+      return res.status(400).json({ message: 'Missing required fields.' });
+    }
 
-    // Find the user
+    console.log('Frontend Role:', role); // Debug log
+    console.log(req.body);  // Debug log to check incoming data
+
+    // Find user based on role
     const user = role === "customer"
-    ? await userModel.findUserByEmail(email)
-    : await userModel.findAdminByEmail(email);
+      ? await userModel.findUserByEmail(email)
+      : await userModel.findAdminByEmail(email);
+
+    console.log('User Query Result:', user); // Debug output
 
     if (!user) {
       return res.status(400).json({ message: 'Invalid email or password.' });
     }
-    //console.log(role,user.role);
-    // Compare passwords (will be changed (use bcrypt for admins as well))
-    const isMatch = role === "customer" ? await bcrypt.compare(password, user.password) : password === user.password;
+
+    // Compare passwords
+    let isMatch;
+    if (role === "customer") {
+      // Hash comparison for customers
+      isMatch = await bcrypt.compare(password, user.password);
+    } else if (role === "admin") {
+      // Hash comparison for admins as well (if you want consistent security)
+      isMatch = await bcrypt.compare(password, user.password);
+    }
+
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid email or password.' });
     }
-    // Generate a JWT
-    const token = jwt.sign({ id: user.id, email: user.email ,role: user.role}, process.env.JWT_SECRET, {
+
+    // Generate JWT token
+    const token = jwt.sign({ id: user.id, email: user.email, role: user.role }, process.env.JWT_SECRET, {
       expiresIn: '1h', // Token valid for 1 hour
     });
 
