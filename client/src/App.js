@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import Header from './components/Header';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import CarPage from './pages/CarPage';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/cars/:plate_id" element={<CarPage />} />
         {/* Add more routes as needed */}
       </Routes>
     </Router>
