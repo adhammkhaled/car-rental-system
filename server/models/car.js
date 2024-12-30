@@ -78,7 +78,7 @@ exports.updateCar = async (plate_id, carData) => {
 };
 exports.getCarStatusByDay = async (params) => {
   const { specific_date } = params;
-  const [rows] = await db.execute(require('../sql/queries/carQueries').getCarStatusByDay, [
+  const [rows] = await db.execute(carQueries.getCarStatusByDay, [
     specific_date,
   ]);
   return rows;
