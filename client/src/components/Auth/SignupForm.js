@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Button from "../Common/Button";
-import "./FormStyles.css"; // Reuse the same CSS file
+import "./FormStyles.css"; 
 
 const SignupForm = () => {
   const [name, setName] = useState("");

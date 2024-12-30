@@ -63,7 +63,7 @@ const AdminPage = () => {
     }
   };
 
-  // Handlers for creating a new car
+  
   const handleNewCarChange = (e) => {
     setNewCar({ ...newCar, [e.target.name]: e.target.value });
   };
@@ -85,7 +85,7 @@ const AdminPage = () => {
         status_id: '',
         office_id: '',
       });
-      fetchAllData(); // Refresh data
+      fetchAllData(); 
       alert('Car created successfully!');
     } catch (error) {
       console.error('Error creating car:', error);
@@ -93,7 +93,7 @@ const AdminPage = () => {
     }
   };
 
-  // Handlers for updating an existing car
+  
   const handleCarSelect = (car) => {
     setSelectedCar(car);
     setUpdateCarData(car);
@@ -117,7 +117,7 @@ const AdminPage = () => {
     }
   };
 
-  // Advanced Search Handlers
+  
   const handleSearchChange = (e) => {
     setSearchCriteria(e.target.value);
   };
@@ -132,7 +132,7 @@ const AdminPage = () => {
     }
   };
 
-  // Report Generation Handlers
+  
   const handleReportTypeChange = (e) => {
     setReportType(e.target.value);
     setReportParams({}); // Reset parameters when report type changes
@@ -153,7 +153,7 @@ const AdminPage = () => {
     }
   };
 
-  // Helper function to format table headers
+  
   const formatHeader = (header) => {
     return header.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
   };

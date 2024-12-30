@@ -8,7 +8,7 @@ function ReservationPage() {
   const { plate_id } = useParams();
   const navigate = useNavigate();
 
-  const [isAuthorized, setIsAuthorized] = useState(true); // Authorization state
+  const [isAuthorized, setIsAuthorized] = useState(true); 
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -16,8 +16,8 @@ function ReservationPage() {
   const [orderNo, setOrderNo] = useState(null);
 
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true"; // Check if user is logged in
-    const userRole = localStorage.getItem("role"); // Get user role
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true"; 
+    const userRole = localStorage.getItem("role"); 
 
     if (!isLoggedIn || userRole !== "customer") {
       setErrorMessage(
@@ -25,7 +25,7 @@ function ReservationPage() {
       );
       setIsAuthorized(false);
 
-      // Redirect to login page or home after a short delay
+      
       setTimeout(() => navigate(isLoggedIn ? "/" : "/login"), 3000);
     }
   }, [navigate]);
@@ -42,7 +42,7 @@ function ReservationPage() {
       return;
     }
 
-    const custId = localStorage.getItem("id"); // Get customer ID
+    const custId = localStorage.getItem("id"); 
     const reservation = {
       cust_id: custId,
       plate_id: plate_id,
@@ -67,7 +67,7 @@ function ReservationPage() {
     }
   };
 
-  // Render nothing if not authorized
+  
   if (!isAuthorized) return null;
 
   return (

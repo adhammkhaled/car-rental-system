@@ -3,7 +3,7 @@ const router = express.Router();
 const reportController = require("../controllers/reportController");
 const authMiddleware = require("../middlewares/authMiddleware");
 
-// Protect routes with authentication if necessary
+
 router.get(
   "/reservations",
   authMiddleware.verifyToken,

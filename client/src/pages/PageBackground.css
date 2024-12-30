@@ -5,10 +5,10 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('../assets/images/background.jpg'); /* Replace with your background image */
+    background-image: url('../assets/images/background.jpg');
     background-size: cover;
     background-position: center;
     filter: blur(8px);
     z-index: -1;
-    outline: 10px solid blueviolet; /* Add this for debugging */
+    outline: 10px solid blueviolet; 
   }

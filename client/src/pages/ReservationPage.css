@@ -1,4 +1,4 @@
-/* src/components/ReservationPage.css */
+
 .reservation-container {
   max-width: 500px;
   margin: 50px auto;
@@ -40,7 +40,7 @@
   margin-bottom: 20px;
 }
 
-/* Button Styles */
+
 .btn {
   width: 100%;
   padding: 15px;
@@ -49,7 +49,7 @@
   color: #fff;
   font-size: 16px;
   cursor: pointer;
-  display: block; /* Ensure the button takes full width */
+  display: block; 
   text-align: center;
 }
 
@@ -57,7 +57,7 @@
   opacity: 0.9;
 }
 
-/* Variants */
+
 .btn-primary {
   background-color: #0288D1;
 }
@@ -74,7 +74,7 @@
   background-color: #45A049;
 }
 
-/* Sizes */
+
 .btn-large {
   font-size: 16px;
   padding: 15px;

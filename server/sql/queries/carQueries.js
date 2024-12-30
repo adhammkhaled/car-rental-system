@@ -47,7 +47,7 @@ module.exports = {
             plate_id = ? AND status_id = 1;
     `,
 
-   // Query to get all car statuses
+   
    getAllCarStatuses: `
    SELECT 
      status_id,
@@ -55,7 +55,7 @@ module.exports = {
    FROM CarStatus
  `,
 
- // Query to get all cars (updated to include status_id and office_id)
+ 
  getAllCars: `
    SELECT 
      plate_id,
@@ -72,7 +72,7 @@ module.exports = {
    FROM Car
  `,
 
- // Query to create a new car (updated with office_id and status_id)
+ 
  createCar: `
    INSERT INTO Car (
      plate_id, model, year, colour, price_per_hour, num_seats, speed, fuel_cons, image_url, office_id, status_id
@@ -81,7 +81,7 @@ module.exports = {
    )
  `,
 
- // Query to update an existing car (updated with office_id and status_id)
+ 
  updateCar: `
    UPDATE Car
    SET

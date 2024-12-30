@@ -1,4 +1,4 @@
-/* General form container */
+
 .form-container {
     display: flex;
     justify-content: center;
@@ -6,7 +6,7 @@
     padding: 20px;
   }
   
-  /* Form styling */
+  
   .form {
     background: white;
     padding: 20px 30px;
@@ -16,7 +16,7 @@
     text-align: center;
   }
   
-  /* Form title */
+  
   .form-title {
     margin-bottom: 20px;
     font-size: 1.5rem;
@@ -24,7 +24,7 @@
     color: #333;
   }
   
-  /* Form group */
+  
   .form-group {
     margin-bottom: 15px;
     text-align: left;
@@ -52,7 +52,7 @@
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
   }
   
-  /* Button styling */
+  
   .form-button {
     display: inline-block;
     width: 100%;
@@ -70,22 +70,22 @@
     background: #0056b3;
   }
   
-/* Message styling */
+
 .form-message {
   margin-top: 15px;
   font-size: 0.9rem;
 }
 
-/* Error message in red */
+
 .form-message.error {
   color: #d9534f;
 }
 
-/* Success message in green */
+
 .form-message.success {
   color: #28a745;
 }
-  /* Styling for the Role radio buttons */
+  
 .form-group {
   margin-bottom: 15px;
   text-align: left;
@@ -100,10 +100,10 @@
 }
 
 .form-group input[type="radio"] {
-  margin-right: 8px; /* Space between the radio button and the label */
+  margin-right: 8px; 
 }
 
-/* Optional: Add some spacing between the radio buttons */
+
 .form-group div {
   display: flex;
   justify-content:space-around;

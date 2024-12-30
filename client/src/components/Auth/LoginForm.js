@@ -60,13 +60,13 @@
 
 import React, { useState } from 'react';
 import Button from '../Common/Button';
-import './FormStyles.css'; // Import generic form styles
+import './FormStyles.css'; 
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const [role, setRole] = useState('customer'); // Default role is customer
+  const [role, setRole] = useState('customer'); 
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -82,11 +82,11 @@ const LoginForm = () => {
       
       if (response.ok) {
         setMessage('Login successful!');
-        localStorage.setItem('isLoggedIn', 'true'); // Store login status
+        localStorage.setItem('isLoggedIn', 'true'); 
         localStorage.setItem('token', data.token);
-        localStorage.setItem('role', role); // Save role for later use
+        localStorage.setItem('role', role); 
         localStorage.setItem('id',data.user.id);
-        window.location.reload(); // Reload to update components depending on login state
+        window.location.reload(); 
       } else {
         setMessage(data.message || 'Login failed.');
       }

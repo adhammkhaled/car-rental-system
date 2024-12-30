@@ -1,20 +1,20 @@
-// CarDetails.js
+
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import './CarDetails.css'; // Component-specific CSS
+import './CarDetails.css'; 
 import Button from '../Common/Button'
-import { getCarDetails } from '../../services/api'; // Your API service
+import { getCarDetails } from '../../services/api';
 
 const CarDetails = () => {
-  const { plate_id } = useParams();  // Extract plate_id from the URL params
+  const { plate_id } = useParams();  
   const [carDetails, setCarDetails] = useState(null);
   const [error, setError] = useState(null);
     console.log(plate_id);
   useEffect(() => {
     const fetchCarDetails = async () => {
       try {
-        // will be changed to axios api 
+        
         const response =  await getCarDetails(plate_id);
         setCarDetails(response.data);
       } catch (err) {
@@ -23,7 +23,7 @@ const CarDetails = () => {
     };
     
     fetchCarDetails();
-  }, [plate_id]);  // Fetch data whenever plate_id changes
+  }, [plate_id]); 
 
   if (error) {
     return (

@@ -33,7 +33,7 @@ exports.getCustomerName = async (customerId) => {
   return rows[0]?.name;
 };
 
-// Reservation related operations
+
 exports.getCustomerInfo = async (id) => {
   const [rows] = await db.execute(queries.getCustomerInfo, [id]);
   return rows[0];

@@ -22,48 +22,48 @@
   color: white;
 }
 
-/* Brand styling */
+
 .header-brand {
   font-size: 1.5em;
   font-weight: bold;
 }
-/* 
 
-   /* Navbar container */
+
+   
    .navbar {
     display: flex;
-    justify-content: space-between; /* Spread out the items */
-    align-items: center; /* Align items vertically */
+    justify-content: space-between; 
+    align-items: center; 
     padding: 10px 20px;
-    background-color: #333; /* Dark background for the navbar */
+    background-color: #333; 
   }
   
-  /* Navbar menu list */
+  
   .navbar-menu {
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
-    gap: 20px; /* Increase the gap between items */
+    gap: 20px; 
   }
   
-  /* Navbar menu list items */
+  
   .navbar-menu li {
     display: inline;
   }
   
-  /* Styling for links inside the navbar */
+  
   .navbar-menu a {
     text-decoration: none;
-    color: white; /* Set text color to white */
+    color: white;
     font-weight: 500;
-    font-size: 16px; /* Set font size */
-    transition: color 0.3s ease; /* Smooth color transition */
+    font-size: 16px; 
+    transition: color 0.3s ease; 
   }
   
-  /* Hover effect for links */
+  
   .navbar-menu a:hover {
-    color: #00bcd4; /* Change text color on hover */
+    color: #00bcd4; 
   }
 
   

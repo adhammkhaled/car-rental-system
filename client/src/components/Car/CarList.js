@@ -1,8 +1,8 @@
-// components/Car/CarList.js
+
 import React from 'react';
 import CarCard from './CarCard';
 
-//import './CarList.css'; // Create a CSS file for styling if needed
+
 
 const CarList = ({ cars }) => {
   if (cars.length === 0) {

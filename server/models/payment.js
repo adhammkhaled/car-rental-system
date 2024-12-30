@@ -1,10 +1,10 @@
 // models/paymentModel.js
 
-const db = require('../config/database'); // Import your database connection
-const paymentQueries = require('../sql/queries/paymentQueries'); // Import payment queries
+const db = require('../config/database'); 
+const paymentQueries = require('../sql/queries/paymentQueries');
 
 exports.getPaymentDetails = async (orderNo) => {
-  // Use the query from paymentQueries.js
+  
   const query = paymentQueries.getPaymentDetails;
 
   const [rows] = await db.execute(query, [orderNo]);
@@ -43,10 +43,10 @@ exports.processPayment = async (orderNo) => {
   try {
     await connection.beginTransaction();
 
-    // Use the query from paymentQueries.js
+    
     const checkPaymentQuery = paymentQueries.checkExistingPayment;
 
-    // Check if payment already exists
+    
     const [paymentRows] = await connection.execute(
       checkPaymentQuery,
       [orderNo]
@@ -56,22 +56,22 @@ exports.processPayment = async (orderNo) => {
       paymentRows.length > 0 &&
       paymentRows[0].payment_status === 'completed'
     ) {
-      // Payment already completed
+      
       await connection.rollback();
       return false;
     }
 
     if (paymentRows.length === 0) {
-      // Insert new payment record
+      
       const insertPaymentQuery = paymentQueries.insertNewPayment;
       await connection.execute(insertPaymentQuery, [orderNo]);
     } else {
-      // Update existing payment record
+      
       const updatePaymentStatusQuery = paymentQueries.updatePaymentStatus;
       await connection.execute(updatePaymentStatusQuery, [orderNo]);
     }
 
-    // Update reservation status to 'completed'
+    
     const updateReservationStatusQuery = paymentQueries.updateReservationStatus;
     await connection.execute(updateReservationStatusQuery, [orderNo]);
 
@@ -86,7 +86,7 @@ exports.processPayment = async (orderNo) => {
   }
 };
 
-// Optional: Get all payments for a customer
+
 exports.getPaymentsForCustomer = async (custId) => {
   const query = paymentQueries.getPaymentsForCustomer;
   const [rows] = await db.execute(query, [custId]);

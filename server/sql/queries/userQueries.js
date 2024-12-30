@@ -87,7 +87,7 @@ getCustomerInfo: `
     SELECT id, name, email FROM Customer WHERE id = ?
   `,
 
-  // Get orders that are paid but not picked up
+  
   getReadyToPickupCars: `
     SELECT
       r.order_no,
@@ -108,7 +108,7 @@ getCustomerInfo: `
       )
   `,
 
-  // Get cars currently rented by the customer
+  
   getRentedCars: `
     SELECT
       r.order_no,

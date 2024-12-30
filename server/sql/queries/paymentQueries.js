@@ -1,7 +1,7 @@
 // sql/queries/paymentQueries.js
 
 module.exports = {
-    // Query to get payment details along with reservation and car information
+    
     getPaymentDetails: `
       SELECT 
         r.order_no, 
@@ -25,32 +25,32 @@ module.exports = {
         r.order_no = ?
     `,
   
-    // Query to check if a payment record already exists for a reservation
+    
     checkExistingPayment: `
       SELECT * FROM Payment WHERE order_no = ?
     `,
   
-    // Query to insert a new payment record based on reservation details
+    
     insertNewPayment: `
       INSERT INTO Payment (order_no, total_charge, payment_status)
       SELECT order_no, charge, 'completed' FROM Reserve WHERE order_no = ?
     `,
   
-    // Query to update an existing payment record to mark it as completed
+    
     updatePaymentStatus: `
       UPDATE Payment 
       SET payment_status = 'completed', payment_date = NOW()
       WHERE order_no = ?
     `,
   
-    // Query to update reservation status to 'completed' after payment
+    
     updateReservationStatus: `
       UPDATE Reserve 
       SET reservation_status = 'completed' 
       WHERE order_no = ?
     `,
   
-    // Query to get all payments for a customer (optional)
+    
     getPaymentsForCustomer: `
       SELECT 
         p.order_no,

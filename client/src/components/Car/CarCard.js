@@ -1,6 +1,5 @@
-// components/Car/CarCard.js
 import React from 'react';
-import './CarCard.css'; // CSS module for styling
+import './CarCard.css'; 
 import Button from '../Common/Button'
 
 const CarCard = ({ car }) => {

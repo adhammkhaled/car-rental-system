@@ -10,7 +10,7 @@ exports.insertReservation = async (custId, plateId, startDate, endDate) => {
     startDate,
     endDate,
   ]);
-  return result.insertId; // Return the generated order_no
+  return result.insertId; 
 };
 
 exports.checkCarAvailability = async (plateId, startDate, endDate) => {
@@ -23,7 +23,7 @@ exports.checkCarAvailability = async (plateId, startDate, endDate) => {
     startDate,
     endDate,
   ]);
-  return rows.length === 0; // Returns true if the car is available
+  return rows.length === 0; 
 };
 
 exports.getReservationDetails = async (orderNo) => {
@@ -36,12 +36,12 @@ exports.getReservationDetails = async (orderNo) => {
 
 exports.cancelReservation = async (orderNo, custId) => {
   const [result] = await db.execute(queries.cancelReservation, [orderNo, custId]);
-  return result.affectedRows > 0; // Returns true if a row was updated
+  return result.affectedRows > 0; 
 };
 
 
 exports.advancedSearch = async (searchCriteria) => {
-  // Extract search parameters with default empty strings
+  
   const {
     car_model = '',
     car_year = '',
@@ -53,7 +53,7 @@ exports.advancedSearch = async (searchCriteria) => {
     reservation_date = ''
   } = searchCriteria;
 
-  // Prepare parameters for the SQL query
+  
   const params = [
     `%${car_model}%`,
     `%${car_year}%`,

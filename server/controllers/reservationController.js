@@ -1,12 +1,12 @@
 // controllers/reservationController.js
 
 const reservationModel = require('../models/reservation');
-const carModel = require('../models/car'); // Assuming you have a carModel
-const userModel = require('../models/user'); // Assuming you have a customerModel
+const carModel = require('../models/car'); 
+const userModel = require('../models/user'); 
 
 exports.makeReservation = async (req, res) => {
   try {
-    console.log('Request params:', req.params); // Print request parameters
+    console.log('Request params:', req.params); 
     const { plateId } = req.params;
     const { start_date, end_date, cust_id } = req.body;
     console.log('plate_id:', plateId);
@@ -14,20 +14,20 @@ exports.makeReservation = async (req, res) => {
     console.log('End date:', end_date);
     console.log('Customer ID:', cust_id);
 
-    // Check if customer exists
+    
     const customerExists = await userModel.getUserById(cust_id);
     if (!customerExists) {
       return res.status(404).json({ message: 'Customer not found.' });
     }
 
-    // Check if car exists and is active
+    
     const carDetails = await carModel.getCarDetails(plateId.toString());
     console.log(carDetails);
     if (!carDetails) {
       return res.status(404).json({ message: 'Car not found or not available.' });
     }
 
-    // Check car availability
+    
     const isAvailable = await reservationModel.checkCarAvailability(
       plateId,
       start_date,
@@ -37,7 +37,7 @@ exports.makeReservation = async (req, res) => {
       return res.status(400).json({ message: 'Car is not available for the selected dates.' });
     }
 
-    // Insert reservation
+    
     const orderNo = await reservationModel.insertReservation(
       cust_id,
       plateId,
@@ -112,19 +112,19 @@ exports.pickupCar = async (req, res) => {
   try {
     const { orderNo } = req.params;
 
-    // First, get the plate_id for the car
+    
     const plateId = await reservationModel.getCarPlateId(orderNo);
     if (!plateId) {
       return res.status(404).json({ message: 'Reservation not found' });
     }
 
-    // Update the reservation status to 'active'
+    
     await reservationModel.updateReservationStatus(orderNo, 'active');
 
-    // Insert into Pickup table
+    
     await reservationModel.insertPickup(orderNo);
 
-    // Update the car status to 'rented'
+    
     const statusId = await reservationModel.getCarStatusIdByName('rented');
     await reservationModel.updateCarStatus(plateId, statusId);
 
@@ -139,16 +139,16 @@ exports.returnCar = async (req, res) => {
   try {
     const { orderNo } = req.params;
 
-    // Get plate_id
+    
     const plateId = await reservationModel.getCarPlateId(orderNo);
     if (!plateId) {
       return res.status(404).json({ message: 'Reservation not found' });
     }
 
-    // Update reservation status to 'completed'
+    
     await reservationModel.completeReservation(orderNo);
 
-    // Update car status to 'active'
+    
     const statusId = await reservationModel.getCarStatusIdByName('active');
     await reservationModel.updateCarStatus(plateId, statusId);
 

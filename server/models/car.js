@@ -10,7 +10,7 @@ exports.getAvailableCars = async (searchTerm = '') => {
 
 exports.getCarDetails = async (plateId) => {
   const [rows] = await db.execute(carQueries.getCarDetails, [plateId]);
-  return rows[0]; // Return the first matching car (if any)
+  return rows[0]; 
 };
 
 exports.getAllCars = async () => {
