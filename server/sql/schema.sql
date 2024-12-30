@@ -127,6 +127,13 @@ CREATE TABLE Admin(
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+CREATE TABLE `Return`(
+    order_no INT PRIMARY KEY,
+    return_date DATETIME NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_no) REFERENCES Reserve(order_no)
+);
+
 -- Create trigger to calculate charge in Reserve table
 DELIMITER //
 CREATE TRIGGER calculate_charge_before_insert 
@@ -178,6 +185,18 @@ BEGIN
         JOIN Reserve r ON c.plate_id = r.plate_id
         SET c.status_id = (SELECT status_id FROM CarStatus WHERE status_name = 'active')
         WHERE r.order_no = NEW.order_no;
+    END IF;
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER record_car_status_change
+AFTER UPDATE ON Car
+FOR EACH ROW
+BEGIN
+    IF NEW.status_id <> OLD.status_id THEN
+        INSERT INTO CarStatusHistory (plate_id, status_id, status_change_date)
+        VALUES (NEW.plate_id, NEW.status_id, NOW());
     END IF;
 END//
 DELIMITER ;

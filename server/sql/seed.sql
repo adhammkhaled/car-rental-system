@@ -15,14 +15,6 @@ VALUES
     ('rented'),
     ('maintenance');
 
--- Insert sample data into Customer table
-INSERT INTO Customer (email, name, password) 
-VALUES 
-    ('john.doe@email.com', 'John Doe', 'password123'),
-    ('jane.smith@email.com', 'Jane Smith', 'securepass'),
-    ('michael.brown@email.com', 'Michael Brown', 'mikepass2023'),
-    ('emily.jones@email.com', 'Emily Jones', 'emilypassword'),
-    ('david.white@email.com', 'David White', 'david2024');
 
 -- Insert sample data into Car table
 INSERT INTO Car (plate_id, model, year, office_id, status_id, colour, price_per_hour, num_seats, speed, fuel_cons, image_url) 

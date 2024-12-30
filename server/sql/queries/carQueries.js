@@ -98,10 +98,20 @@ module.exports = {
    WHERE plate_id = ?
  `,
  getCarStatusByDay: `
-  SELECT c.plate_id, c.model, cs.status_name
-  FROM Car c
-  JOIN CarStatus cs ON c.status_id = cs.status_id
-  WHERE c.updated_at <= ?
-`,
+    SELECT
+      c.plate_id,
+      c.model,
+      cs.status_name
+    FROM
+      Car c
+    JOIN
+      (SELECT plate_id, status_id, MAX(status_change_date) as last_change
+       FROM CarStatusHistory
+       WHERE status_change_date <= ?
+       GROUP BY plate_id
+      ) as csh ON c.plate_id = csh.plate_id
+    JOIN
+      CarStatus cs ON csh.status_id = cs.status_id;
+  `,
   
   };
