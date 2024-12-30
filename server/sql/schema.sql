@@ -134,7 +134,7 @@ BEFORE INSERT ON Reserve
 FOR EACH ROW
 BEGIN
     SET NEW.charge = (
-        SELECT DATEDIFF(NEW.end_date, NEW.start_date) * price_per_hour
+        SELECT DATEDIFF(NEW.end_date, NEW.start_date) * price_per_hour * 24
         FROM Car 
         WHERE plate_id = NEW.plate_id
     );

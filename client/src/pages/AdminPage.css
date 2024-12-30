@@ -12,12 +12,13 @@
 .admin-header {
   position: fixed;
   top: 0;
-  left: 200px; /* Width of the sidebar */
-  right: 0;
-  background-color: #bc69e9;
+  left: 0;
+  width: 210px;
+  height: 100%;
+  background-color: #23272b;
   color: #fff;
-  padding: 20px;
-  z-index: 1;
+  padding-top: 80px; /* Space for the header */
+  box-sizing: border-box;
 }
 
 .admin-header h1 {
@@ -26,7 +27,7 @@
 
 /* Sidebar styles */
 .admin-sidebar {
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
   width: 200px;

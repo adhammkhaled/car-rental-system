@@ -15,7 +15,19 @@ const authRoutes = require('./routes/authRoutes');
 const reservationRoutes = require('./routes/reservationRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+// Import routes
+const userRoutes = require('./routes/userRoutes');
 
+const transactionRoutes = require('./routes/transactionRoutes');
+// ... other imports
+const customerRoutes = require('./routes/customerRoutes');
+
+// ... other route uses
+app.use('/api/customer', customerRoutes);
+// Use the routes
+app.use('/api', transactionRoutes);
+// Use routes
+app.use('/api', userRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/cars', carRoutes);
 

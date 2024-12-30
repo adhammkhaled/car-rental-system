@@ -95,3 +95,38 @@ exports.getReservationsByCustomer = async (params) => {
   ]);
   return rows;
 };
+exports.getReservedCars = async (userId) => {
+  const [rows] = await db.execute(queries.getReservedCars, [userId]);
+  return rows;
+};
+
+exports.getRentedCars = async (userId) => {
+  const [rows] = await db.execute(queries.getRentedCars, [userId]);
+  return rows;
+};
+
+exports.updateReservationStatus = async (orderNo, status) => {
+  await db.execute(queries.updateReservationStatus, [status, orderNo]);
+};
+
+exports.insertPickup = async (orderNo) => {
+  await db.execute(queries.insertPickup, [orderNo]);
+};
+
+exports.updateCarStatus = async (plateId, statusId) => {
+  await db.execute(queries.updateCarStatus, [statusId, plateId]);
+};
+
+exports.getCarPlateId = async (orderNo) => {
+  const [rows] = await db.execute(queries.getCarPlateId, [orderNo]);
+  return rows[0]?.plate_id || null;
+};
+
+exports.completeReservation = async (orderNo) => {
+  await db.execute(queries.completeReservation, [orderNo]);
+};
+
+exports.getCarStatusIdByName = async (statusName) => {
+  const [rows] = await db.execute(queries.getCarStatusIdByName, [statusName]);
+  return rows[0]?.status_id || null;
+};

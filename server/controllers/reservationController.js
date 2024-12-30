@@ -2,7 +2,7 @@
 
 const reservationModel = require('../models/reservation');
 const carModel = require('../models/car'); // Assuming you have a carModel
-const customerModel = require('../models/customer'); // Assuming you have a customerModel
+const userModel = require('../models/user'); // Assuming you have a customerModel
 
 exports.makeReservation = async (req, res) => {
   try {
@@ -15,7 +15,7 @@ exports.makeReservation = async (req, res) => {
     console.log('Customer ID:', cust_id);
 
     // Check if customer exists
-    const customerExists = await customerModel.getCustomerById(cust_id);
+    const customerExists = await userModel.getUserById(cust_id);
     if (!customerExists) {
       return res.status(404).json({ message: 'Customer not found.' });
     }
@@ -71,7 +71,7 @@ exports.getReservationDetails = async (req, res) => {
 exports.cancelReservation = async (req, res) => {
   try {
     const { orderNo } = req.params;
-    const custId = req.user.id; // Assuming user ID is set in req.user after authentication
+    const custId = req.params.custId;
 
     const success = await reservationModel.cancelReservation(orderNo, custId);
 
@@ -82,6 +82,79 @@ exports.cancelReservation = async (req, res) => {
     res.status(200).json({ message: 'Reservation cancelled successfully.' });
   } catch (error) {
     console.error('Error cancelling reservation:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+    
+};
+exports.getReservedCars = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const reservedCars = await reservationModel.getReservedCars(userId);
+    res.status(200).json(reservedCars);
+  } catch (error) {
+    console.error('Error fetching reserved cars:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+exports.getRentedCars = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const rentedCars = await reservationModel.getRentedCars(userId);
+    res.status(200).json(rentedCars);
+  } catch (error) {
+    console.error('Error fetching rented cars:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+exports.pickupCar = async (req, res) => {
+  try {
+    const { orderNo } = req.params;
+
+    // First, get the plate_id for the car
+    const plateId = await reservationModel.getCarPlateId(orderNo);
+    if (!plateId) {
+      return res.status(404).json({ message: 'Reservation not found' });
+    }
+
+    // Update the reservation status to 'active'
+    await reservationModel.updateReservationStatus(orderNo, 'active');
+
+    // Insert into Pickup table
+    await reservationModel.insertPickup(orderNo);
+
+    // Update the car status to 'rented'
+    const statusId = await reservationModel.getCarStatusIdByName('rented');
+    await reservationModel.updateCarStatus(plateId, statusId);
+
+    res.status(200).json({ message: 'Car picked up successfully' });
+  } catch (error) {
+    console.error('Error picking up car:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+exports.returnCar = async (req, res) => {
+  try {
+    const { orderNo } = req.params;
+
+    // Get plate_id
+    const plateId = await reservationModel.getCarPlateId(orderNo);
+    if (!plateId) {
+      return res.status(404).json({ message: 'Reservation not found' });
+    }
+
+    // Update reservation status to 'completed'
+    await reservationModel.completeReservation(orderNo);
+
+    // Update car status to 'active'
+    const statusId = await reservationModel.getCarStatusIdByName('active');
+    await reservationModel.updateCarStatus(plateId, statusId);
+
+    res.status(200).json({ message: 'Car returned successfully' });
+  } catch (error) {
+    console.error('Error returning car:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };
