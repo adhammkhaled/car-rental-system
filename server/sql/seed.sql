@@ -24,3 +24,18 @@ VALUES
     ('LMN789', 'Ford Focus', 2020, 3, 1, 'Black', 25.00, 5, 170, 6.0, 'https://www.ford.co.nz/content/dam/Ford/website-assets/ap/nz/future-vehicle/focus-st/colorizer/agate%20black/agate-black.jpg.dam.full.high.jpg/1572419431893.jpg'),
     ('QRS101', 'BMW 320i', 2023, 4, 1, 'White', 50.00, 4, 200, 8.0, 'https://media.hatla2eestatic.com/uploads/ncarmodel/10373/big-up_b7599229d943d788ef666e9da27953ad.png'),
     ('DEF234', 'Mercedes Benz C-Class', 2021, 5, 1, 'Silver', 45.00, 4, 210, 7.5, 'https://ymimg1.b8cdn.com/resized/car_model/6391/logo/listing_main_11894_st1280_046.jpg');
+
+
+
+INSERT INTO CarStatusHistory (plate_id, status_id, status_change_date)
+VALUES
+('ABC123', 1, '2023-10-31 09:00:00'),
+('XYZ456', 1, '2023-10-31 09:00:00'),
+('LMN789', 1, '2023-10-31 09:00:00'),
+('QRS101', 1, '2023-10-31 09:00:00'),
+('DEF234', 3, '2023-10-31 09:00:00'); -- Assuming 'DEF234' is currently 'rented'
+
+
+INSERT INTO CarStatusHistory (plate_id, status_id, status_change_date)
+SELECT plate_id, status_id, NOW()
+FROM Car;

@@ -46,48 +46,48 @@ module.exports = {
       SET reservation_status = 'cancelled'
       WHERE order_no = ? AND cust_id = ?
     `,
-    advancedSearch: `
-    SELECT
-      r.order_no,
-      r.start_date,
-      r.end_date,
-      c.plate_id,
-      c.model AS car_model,
-      c.year AS car_year,
-      c.colour AS car_colour,
-      c.price_per_hour,
-      c.num_seats,
-      c.speed,
-      c.fuel_cons,
-      c.image_url,
-      cs.status_name AS car_status,
-      o.office_name,
-      o.location AS office_location,
-      cu.id AS customer_id,
-      cu.name AS customer_name,
-      cu.email AS customer_email,
-      cu.created_at AS customer_since
-    FROM
-      Reserve r
-    RIGHT JOIN
-      Car c ON r.plate_id = c.plate_id
-    LEFT JOIN
-      CarStatus cs ON c.status_id = cs.status_id
-    LEFT JOIN
-      Office o ON c.office_id = o.office_id
-    LEFT JOIN
-      Customer cu ON r.cust_id = cu.id
-    WHERE
-       (
-      c.model LIKE ?
-      OR c.year LIKE ?
-      OR c.colour LIKE ?
-      OR o.location LIKE ?
-      OR cs.status_name LIKE ?
-      OR cu.email LIKE ?
-      OR cu.id LIKE ?
-      OR r.start_date = ?)
-  `,
+  //   advancedSearch: `
+  //   SELECT
+  //     r.order_no,
+  //     r.start_date,
+  //     r.end_date,
+  //     c.plate_id,
+  //     c.model AS car_model,
+  //     c.year AS car_year,
+  //     c.colour AS car_colour,
+  //     c.price_per_hour,
+  //     c.num_seats,
+  //     c.speed,
+  //     c.fuel_cons,
+  //     c.image_url,
+  //     cs.status_name AS car_status,
+  //     o.office_name,
+  //     o.location AS office_location,
+  //     cu.id AS customer_id,
+  //     cu.name AS customer_name,
+  //     cu.email AS customer_email,
+  //     cu.created_at AS customer_since
+  //   FROM
+  //     Reserve r
+  //   RIGHT JOIN
+  //     Car c ON r.plate_id = c.plate_id
+  //   LEFT JOIN
+  //     CarStatus cs ON c.status_id = cs.status_id
+  //   LEFT JOIN
+  //     Office o ON c.office_id = o.office_id
+  //   LEFT JOIN
+  //     Customer cu ON r.cust_id = cu.id
+  //   WHERE
+  //      (
+  //     c.model LIKE ?
+  //     OR c.year LIKE ?
+  //     OR c.colour LIKE ?
+  //     OR o.location LIKE ?
+  //     OR cs.status_name LIKE ?
+  //     OR cu.email LIKE ?
+  //     OR cu.id LIKE ?
+  //     OR r.start_date = ?)
+  // `,
 
   getReservationsByPeriod: `
     SELECT r.order_no, r.start_date, r.end_date, c.model AS car_model, c.plate_id, cu.name AS customer_name

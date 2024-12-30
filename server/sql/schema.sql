@@ -134,6 +134,17 @@ CREATE TABLE `Return`(
     FOREIGN KEY (order_no) REFERENCES Reserve(order_no)
 );
 
+CREATE TABLE CarStatusHistory (
+    history_id INT AUTO_INCREMENT PRIMARY KEY,
+    plate_id VARCHAR(15) NOT NULL,
+    status_id INT NOT NULL,
+    status_change_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (plate_id) REFERENCES Car(plate_id),
+    FOREIGN KEY (status_id) REFERENCES CarStatus(status_id),
+    INDEX idx_plate_id (plate_id),
+    INDEX idx_status_change_date (status_change_date)
+);
+
 -- Create trigger to calculate charge in Reserve table
 DELIMITER //
 CREATE TRIGGER calculate_charge_before_insert 
