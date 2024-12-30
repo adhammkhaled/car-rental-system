@@ -160,9 +160,6 @@ const AdminPage = () => {
 
   return (
     <div className="admin-container">
-      <header className="admin-header">
-        <h1>Admin Dashboard</h1>
-      </header>
       <main className="admin-content">
         <h2>Welcome, Admin!</h2>
         <p>Here you can manage your application settings and cars.</p>
@@ -573,3 +570,35 @@ const AdminPage = () => {
 };
 
 export default AdminPage;
+
+
+// .admin-header {
+//   position: fixed; /* Sticks to the top of the viewport */
+//   top: 0; /* Position at the very top */
+//   width: 100%; /* Full width */
+//   height: 60px; /* Fixed height */
+//   background-color: #23272b; /* Background color */
+//   color: #fff; /* Text color */
+//   padding: 0 20px; /* Horizontal padding */
+//   box-sizing: border-box; /* Includes padding in dimensions */
+//   display: flex; /* Use flexbox for alignment */
+//   align-items: center; /* Vertically center the content */
+//   justify-content: space-between; /* Space out items horizontally */
+//   z-index: 1000; /* Ensures it's above other content */
+//   border-bottom: 1px solid #444; /* Optional: A subtle bottom border */
+// }
+
+// .admin-sidebar {
+//   position: relative; /* Keeps the sidebar fixed on the left */
+//   top: 0; /* Aligns to the top of the viewport */
+//   left: 0; /* Aligns to the left of the viewport */
+//   width: 200px; /* Fixed width */
+//   height: 100%; /* Full height of the viewport */
+//   background-color: #23272b; /* Sidebar background */
+//   color: #fff; /* Text color */
+//   padding: 20px 10px; /* Add padding for better spacing */
+//   box-sizing: border-box; /* Includes padding in the dimensions */
+//   overflow-y: auto; /* Allows scrolling if content exceeds height */
+//   border-right: 1px solid #444; /* Optional: Adds a subtle border */
+//   z-index: 1000; /* Ensures it stays above other content */
+// }
