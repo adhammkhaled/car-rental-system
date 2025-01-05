@@ -185,6 +185,18 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Create trigger to update car status when reserved
+DELIMITER //
+CREATE TRIGGER update_car_status_after_retrun
+AFTER UPDATE ON Return
+FOR EACH ROW
+BEGIN
+    UPDATE Car 
+    SET status_id = (SELECT status_id FROM CarStatus WHERE status_name = 'maintenance')
+    WHERE plate_id = NEW.plate_id;
+END//
+DELIMITER ;
+
 -- Create trigger to update car status when reservation ends
 DELIMITER //
 CREATE TRIGGER update_car_status_after_payment
